@@ -11,4 +11,10 @@ export class AppController {
   async register(@Body() userDto:userValidationDto){
     return this.appService.Register(userDto)
   }
+
+  @Post('/login')
+  @UsePipes(ValidationPipe)
+  async login(@Body() userDto:userValidationDto){
+    return this.appService.Login(userDto)
+  }
 }
