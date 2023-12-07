@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import {Model} from 'mongoose'
 import { User,UserDocument } from './Models/user.model';
 import { InjectModel } from '@nestjs/mongoose';
+import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class AppService {
@@ -10,6 +11,9 @@ export class AppService {
   // Register user
 
   async Register(user:User){
+    const salt = await bcrypt.genSalt()
+    const password = await bcrypt.hash(user.password,salt)
+    user.password = password
     const newUser =  new this.userModel(user)
     return newUser.save()
   }
