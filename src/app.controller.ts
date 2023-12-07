@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AppService } from './app.service';
 import { userValidationDto } from './dto/user.dto';
 
@@ -13,7 +13,7 @@ export class AppController {
   }
 
   @Post('/login')
-  @UsePipes(ValidationPipe)
+  @UsePipes(new ValidationPipe({errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY}))
   async login(@Body() userDto:userValidationDto){
     return this.appService.Login(userDto)
   }
