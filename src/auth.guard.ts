@@ -14,10 +14,10 @@ import {
   
     async canActivate(context: ExecutionContext): Promise<boolean> {
       const request = context.switchToHttp().getRequest();
-      const authHeader = request.headers.authorization
-      console.log(authHeader);
       
-      const token = this.extractTokenFromHeader(request);
+      let token = this.extractTokenFromHeader(request);
+      token = decodeURIComponent(token)
+      console.log(token)
       
       if (!token) {
         throw new UnauthorizedException();
@@ -29,9 +29,11 @@ import {
             secret: jwtConstants.secret
           }
         )
-
+          console.log(payload);
+          
         request['user'] = payload;
-      } catch {
+      } catch(err) {
+        console.log(err);
         throw new UnauthorizedException();
       }
       return true;
@@ -39,6 +41,7 @@ import {
   
     private extractTokenFromHeader(request: Request): string | undefined {
       const [type, token] = request.headers.authorization?.split(' ') ?? [];
+      
       return type === 'Bearer' ? token : undefined;
     }
   }

@@ -4,12 +4,15 @@ import { User,UserDocument } from './Models/user.model';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt';
+import { Url, UrlDocument } from './Models/url.model';
+import { urlValidationDto } from './dto/url.dto';
 
 @Injectable()
 export class AppService {
   constructor(
     private jwtService: JwtService,
-    @InjectModel('user') private readonly userModel:Model<UserDocument>){}
+    @InjectModel('user') private readonly userModel:Model<UserDocument>,
+    @InjectModel('url') private readonly UrlModel:Model<UrlDocument>){}
 
   // Register user
 
@@ -39,7 +42,11 @@ export class AppService {
 
   // Add urls
 
-  async addUrl(url){
-
+  async addUrl(url:urlValidationDto){
+    console.log(url);
+    const urlExist = await this.UrlModel.findOne({url:url.url})
+    if(urlExist){
+      throw new HttpException('Url already decoded',HttpStatus.CONFLICT)
+    }
   }
 }

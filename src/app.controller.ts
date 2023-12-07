@@ -19,9 +19,9 @@ export class AppController {
 
   @Post('/addUrl')
   @UseGuards(AuthGuard)
-  @UsePipes()
+  @UsePipes(SETTINGS.urlValidation)
   async addUrl(@Body() urlDto:urlValidationDto){
-    return this.appService
+    return this.appService.addUrl(urlDto)
   }
 
   @Post('/register')
