@@ -30,12 +30,16 @@ export class AppService {
 
   async Login(user:User){
     const userExist = await this.userModel.findOne({username:user.username})
-    const isMatch = await bcrypt.compare(user.password,userExist.password)
-    if(isMatch){
-      const token = await this.jwtService.signAsync({sub:userExist._id})  
-      return {token}
+    if(userExist){
+      const isMatch = await bcrypt.compare(user.password,userExist.password)
+      if(isMatch){
+        const token = await this.jwtService.signAsync({sub:userExist._id})  
+        return {token}
+      }else{
+        throw new HttpException('User not found with password and username', HttpStatus.NOT_FOUND);      
+      }
     }else{
-      throw new HttpException('User not found with password and username', HttpStatus.NOT_FOUND);      
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND); 
     }
   }
 
