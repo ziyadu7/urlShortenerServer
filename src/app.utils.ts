@@ -6,9 +6,6 @@ const urlErrorMessage = 'Url is required'
 const userValidation = new ValidationPipe({errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY})
 const urlValidation = new ValidationPipe({errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY})
 
-export const jwtConstants = {
-    secret: 'JWTSecret123',
-};
 
 export const SETTINGS = {
     userValidation,

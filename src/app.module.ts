@@ -4,8 +4,8 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './Models/user.model'
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './app.utils';
 import { UrlSchema } from './Models/url.model';
+import { jwtConfig } from './config/jwt.config';
 
 @Module({
   imports: [MongooseModule.forRootAsync({
@@ -15,11 +15,9 @@ import { UrlSchema } from './Models/url.model';
   }),
   MongooseModule.forFeature([{ name: 'user', schema: UserSchema }]),
   MongooseModule.forFeature([{ name: 'url', schema: UrlSchema }]),
-  JwtModule.register({
-    global: true,
-    secret: jwtConstants.secret,
-    signOptions: { expiresIn: '1d' }
-  })],
+  JwtModule.registerAsync(
+    jwtConfig
+  )],
   controllers: [AppController],
   providers: [AppService],
 })
