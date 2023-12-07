@@ -2,6 +2,7 @@ import {ValidationPipe,HttpStatus} from '@nestjs/common'
 
 const usernameErrorMessage = 'Username is required'
 const passwrodErrorMessage = 'Password is required'
+const urlErrorMessage = 'Url is required'
 const userValidation = new ValidationPipe({errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY})
 
 export const jwtConstants = {
@@ -14,5 +15,6 @@ export const SETTINGS = {
 
 export const MESSAGES = {
     usernameErrorMessage,
-    passwrodErrorMessage
+    passwrodErrorMessage,
+    urlErrorMessage
 }

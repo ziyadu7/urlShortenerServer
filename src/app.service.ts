@@ -33,4 +33,13 @@ export class AppService {
       throw new HttpException('User not found with password and username', HttpStatus.NOT_FOUND);      
     }
   }
+
+  // Get urls
+
+
+  // Add urls
+
+  async addUrl(url){
+
+  }
 }
