@@ -5,17 +5,17 @@ import { SETTINGS } from './app.utils';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Post('/register')
   @UsePipes(SETTINGS.userValidation)
-  async register(@Body() userDto:userValidationDto){
+  async register(@Body() userDto: userValidationDto) {
     return this.appService.Register(userDto)
   }
 
   @Post('/login')
   @UsePipes(SETTINGS.userValidation)
-  async login(@Body() userDto:userValidationDto){
+  async login(@Body() userDto: userValidationDto) {
     return this.appService.Login(userDto)
   }
 }

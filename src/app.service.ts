@@ -3,10 +3,13 @@ import {Model} from 'mongoose'
 import { User,UserDocument } from './Models/user.model';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt'
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AppService {
-  constructor(@InjectModel('user') private readonly userModel:Model<UserDocument>){}
+  constructor(
+    private jwtService: JwtService,
+    @InjectModel('user') private readonly userModel:Model<UserDocument>){}
 
   // Register user
 
@@ -24,7 +27,8 @@ export class AppService {
     const userExist = await this.userModel.findOne({username:user.username})
     const isMatch = await bcrypt.compare(user.password,userExist.password)
     if(isMatch){
-      return userExist
+      const token = await this.jwtService.signAsync({sub:userExist._id})  
+      return {token}
     }else{
       throw new HttpException('User not found with password and username', HttpStatus.NOT_FOUND);      
     }
