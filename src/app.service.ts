@@ -4,8 +4,10 @@ import { User,UserDocument } from './Models/user.model';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt';
-import { Url, UrlDocument } from './Models/url.model';
+import { UrlDocument } from './Models/url.model';
 import { urlValidationDto } from './dto/url.dto';
+import { nanoid } from 'nanoid';
+import { isURL } from 'class-validator';
 
 @Injectable()
 export class AppService {
@@ -39,14 +41,30 @@ export class AppService {
 
   // Get urls
 
+  async getUrls(userId){
+    const urls = await this.UrlModel.find({userId})
+    return {urls}
+  }
 
   // Add urls
 
-  async addUrl(url:urlValidationDto){
-    console.log(url);
-    const urlExist = await this.UrlModel.findOne({url:url.url})
+  async addUrl(url:urlValidationDto,userId){
+    if (!isURL(url.url)) {
+      throw new HttpException('Enter a valid url',HttpStatus.BAD_REQUEST)
+    }
+    const urlExist = await this.UrlModel.findOne({$and:[{url:url.url},{userId}]})
     if(urlExist){
       throw new HttpException('Url already decoded',HttpStatus.CONFLICT)
+    }else{
+      const urlCode = nanoid(10);
+
+      await this.UrlModel.create({
+        userId,
+        url:url.url,
+        shortenUrl:urlCode
+      })
+
+      return {message:'Url shortened successfully'}
     }
   }
 }

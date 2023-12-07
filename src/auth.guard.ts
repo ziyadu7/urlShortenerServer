@@ -17,7 +17,6 @@ import {
       
       let token = this.extractTokenFromHeader(request);
       token = decodeURIComponent(token)
-      console.log(token)
       
       if (!token) {
         throw new UnauthorizedException();

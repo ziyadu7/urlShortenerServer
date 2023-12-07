@@ -12,16 +12,14 @@ export class AppController {
   @Get('/')
   @UseGuards(AuthGuard)
   async getUrls(@Request() req){
-    console.log('daadada');
-    
-    return req.user
+    return this.appService.getUrls(req.user.sub)
   } 
 
   @Post('/addUrl')
   @UseGuards(AuthGuard)
   @UsePipes(SETTINGS.urlValidation)
-  async addUrl(@Body() urlDto:urlValidationDto){
-    return this.appService.addUrl(urlDto)
+  async addUrl(@Request() req, @Body() urlDto:urlValidationDto){
+    return this.appService.addUrl(urlDto,req.user.sub)
   }
 
   @Post('/register')
