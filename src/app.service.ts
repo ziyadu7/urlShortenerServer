@@ -22,10 +22,11 @@ export class AppService {
 
   async Login(user:User){
     const userExist = await this.userModel.findOne({username:user.username})
-    if(userExist){
+    const isMatch = await bcrypt.compare(user.password,userExist.password)
+    if(isMatch){
       return userExist
     }else{
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);      
+      throw new HttpException('User not found with password and username', HttpStatus.NOT_FOUND);      
     }
   }
 }
