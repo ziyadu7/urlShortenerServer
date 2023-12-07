@@ -25,7 +25,7 @@ import {
         const payload = await this.jwtService.verifyAsync(
           token,
           {
-            secret: jwtConstants.secret
+            secret: process.env.JWTSECRET
           }
         )
           
