@@ -19,11 +19,16 @@ export class AppService {
   // Register user
 
   async Register(user:User){
-    const salt = await bcrypt.genSalt()
-    const password = await bcrypt.hash(user.password,salt)
-    user.password = password
-    const newUser =  new this.userModel(user)
-    return newUser.save()
+    const isExist = await this.userModel.findOne({username:user.username})
+    if(isExist){
+      throw new HttpException('User already registered',HttpStatus.CONFLICT)
+    }else{
+      const salt = await bcrypt.genSalt()
+      const password = await bcrypt.hash(user.password,salt)
+      user.password = password
+      const newUser =  new this.userModel(user)
+      return newUser.save()
+    }
   }
 
   // Login user
