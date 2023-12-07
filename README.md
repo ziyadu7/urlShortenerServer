@@ -26,20 +26,18 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Special consideration
+## AI-Assisted Development
 
-Use of ChatGPT in Development
-During the development of this project, I utilized AI-assisted tools, particularly ChatGPT, to enhance the development process and overcome challenges encountered while working with NestJS for the first time.
+During the development of this project, I utilized AI-powered tools, particularly ChatGPT, to navigate through the challenges faced while working with NestJS for the first time.
 
-Error Resolution and Troubleshooting:
+### How ChatGPT was Beneficial:
 
-NestJS Environment Setup: ChatGPT was instrumental in resolving issues related to setting up environment variables, guiding through the configuration process, and understanding the required structure.
-JWT Token Handling: Assistance from ChatGPT was pivotal in handling JWT token signing, verification, and header configurations, significantly reducing the learning curve for these processes.
-Enhanced Learning and Code Quality:
+#### Learning NestJS:
+As I was new to NestJS, I encountered various hurdles, especially during environment setup, JWT token handling (signing, verification), and managing headers. ChatGPT acted as a helpful guide, offering insights and solutions that accelerated my learning curve.
 
-Learning Curve: ChatGPT's guidance and insights accelerated my understanding of NestJS, allowing for faster comprehension of concepts and improving code quality in the project.
-Problem-Solving: It assisted in troubleshooting errors, offering suggestions, and providing alternative solutions to overcome challenges.
-By leveraging AI-assisted development tools like ChatGPT, I could expedite the learning process and address complexities, ultimately contributing to a more efficient development workflow and code quality enhancement.
+#### Troubleshooting Errors:
+When dealing with errors related to setting up environment variables or understanding JWT, ChatGPT provided useful suggestions and alternative approaches. This significantly streamlined the troubleshooting process.
+
 
 ## Installation
 
