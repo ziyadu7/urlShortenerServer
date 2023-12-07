@@ -46,6 +46,14 @@ export class AppService {
     return {urls}
   }
 
+  // Delte urls
+
+  async deleteUrl(urlId){
+    
+    await this.UrlModel.deleteOne({_id:urlId})
+    return {message:'Url removed successfully'}
+  }
+
   // Add urls
 
   async addUrl(url:urlValidationDto,userId){
