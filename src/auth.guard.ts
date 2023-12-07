@@ -28,7 +28,6 @@ import {
             secret: jwtConstants.secret
           }
         )
-          console.log(payload);
           
         request['user'] = payload;
       } catch(err) {

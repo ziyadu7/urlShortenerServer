@@ -14,6 +14,7 @@ import { UrlSchema } from './Models/url.model';
           JwtModule.register({
             global: true,
             secret: jwtConstants.secret,
+            signOptions: { expiresIn: '1d' }
           })],
   controllers: [AppController],
   providers: [AppService],
