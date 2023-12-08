@@ -49,7 +49,6 @@ describe('AppController', () => {
       jest.spyOn(appService, 'deleteUrl').mockResolvedValue(deleteResult);
 
       const result = await appController.deleteUrl({ urlId: mockUrlId });
-      console.log(result,'===');
       
       expect(appService.deleteUrl).toHaveBeenCalledWith(mockUrlId);
       expect(result).toEqual(deleteResult);
