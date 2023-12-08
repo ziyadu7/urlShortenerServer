@@ -1,8 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UrlDocument } from './Models/url.model';
+import { Model } from 'mongoose';
 
 describe('AppController', () => {
+  let UrlModel:Model<UrlDocument>;
   let appController: AppController;
   let appService: AppService;
 
@@ -22,16 +25,17 @@ describe('AppController', () => {
       const mockRequest = { user: { sub: 'user_id' } };
   
       const mockUrls = { urls: [
-        { _id: '1', userId: '1', shortenUrl: 'shorten1', url: 'https://www.youtube.com/' },
-        { _id: '2', userId: '2', shortenUrl: 'shorten2', url: 'https://www.linkedin.com/in/muhammed-ziyad-0078b3259/' },
+      new UrlModel(  { _id: '65732c10e583903a76b6ca7c', userId: '65732c10e583903a76b6ca7c', shortenUrl: 'shorten1', url: 'https://www.youtube.com/',__v: 0 })
       ] };
+
+      jest.spyOn(appService, 'getUrls').mockResolvedValue(mockUrls);
   
       const result = await appController.getUrls(mockRequest);
       console.log(result,'===');
       
+      expect(appService.getUrls).toHaveBeenCalledWith('user_id');
       expect(result).toEqual(mockUrls);
   
-      expect(appService.getUrls).toHaveBeenCalledWith('user_id');
     });
   });
   
@@ -42,7 +46,9 @@ describe('AppController', () => {
       const mockUrlId = '1';
 
       // Mocking the return value of appService.deleteUrl()
-      const deleteResult = { success: true };
+      const deleteResult = { message:"Url Removed successfully" };
+
+      jest.spyOn(appService, 'deleteUrl').mockResolvedValue(deleteResult);
 
       const result = await appController.deleteUrl({ urlId: mockUrlId });
       console.log(result,'===');

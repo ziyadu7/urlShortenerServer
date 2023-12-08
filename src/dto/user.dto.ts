@@ -1,5 +1,5 @@
 import { IsNotEmpty,Length } from "class-validator";
-import { MESSAGES } from "src/app.utils";
+import { MESSAGES } from "../app.utils";
 
 export class userValidationDto{
 
