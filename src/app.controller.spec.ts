@@ -31,7 +31,6 @@ describe('AppController', () => {
       jest.spyOn(appService, 'getUrls').mockResolvedValue(mockUrls);
   
       const result = await appController.getUrls(mockRequest);
-      console.log(result,'===');
       
       expect(appService.getUrls).toHaveBeenCalledWith('user_id');
       expect(result).toEqual(mockUrls);
@@ -42,10 +41,9 @@ describe('AppController', () => {
  
   describe('deleteUrl', () => {
     it('should delete a URL', async () => {
-      // Mocking the URL parameter
+
       const mockUrlId = '1';
 
-      // Mocking the return value of appService.deleteUrl()
       const deleteResult = { message:"Url Removed successfully" };
 
       jest.spyOn(appService, 'deleteUrl').mockResolvedValue(deleteResult);
@@ -58,5 +56,4 @@ describe('AppController', () => {
     });
   });
 
-  // More test cases for other controller methods can be added similarly
 });
