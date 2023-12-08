@@ -50,14 +50,15 @@ export class AppService {
 
   // Get urls
 
-  async getUrls(userId){
+  async getUrls(userId:String){
+        
     const urls = await this.UrlModel.find({userId})
     return {urls}
   }
 
   // Delte urls
 
-  async deleteUrl(urlId){
+  async deleteUrl(urlId:String){
     
     await this.UrlModel.deleteOne({_id:urlId})
     return {message:'Url removed successfully'}
