@@ -53,7 +53,6 @@ export class AppService {
   async getUrls(userId:String){
         
     const urls = await this.UrlModel.find({userId})
-    console.log(urls);
     
     return {urls}
   }
