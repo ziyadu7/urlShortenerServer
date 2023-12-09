@@ -37,6 +37,29 @@ describe('AppController', () => {
   
     });
   });
+
+  describe('addUrl', () => {
+    it('It should add a url', async () => {
+
+      const mockUrl = 'https://www.youtube.com/';
+      const mockUserId = '1';
+
+      const addResult = { message:"Url shortened successfully" };
+
+      jest.spyOn(appService, 'addUrl').mockResolvedValue(addResult);
+
+      const mockRequest = {
+        user: {
+          sub: mockUserId,
+        },
+      };
+
+      const result = await appController.addUrl(mockRequest, {url:mockUrl});
+      
+      expect(appService.addUrl).toHaveBeenCalledWith(mockUrl,mockUserId);
+      expect(result).toEqual(addResult);
+    });
+  });
   
  
   describe('deleteUrl', () => {

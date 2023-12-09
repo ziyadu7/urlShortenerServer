@@ -26,6 +26,8 @@ export class AppController {
   @UseGuards(AuthGuard)
   @UsePipes(SETTINGS.urlValidation)
   async addUrl(@Request() req, @Body() urlDto:urlValidationDto){
+    console.log(urlDto);
+    
     return this.appService.addUrl(urlDto,req.user.sub)
   }
 
