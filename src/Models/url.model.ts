@@ -14,6 +14,9 @@ export class Url {
 
     @Prop()
     shortenUrl: string;
+
+    @Prop()
+    shortenId: string;
 }
 
 export const UrlSchema = SchemaFactory.createForClass(Url);

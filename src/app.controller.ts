@@ -18,7 +18,7 @@ export class AppController {
   @Get('/url')
   @UseGuards(AuthGuard)
   async redirectUrl(@Request() req,@Response() res:Response){
-    return this.appService.redirectUrl(req.Params.urlId)
+    return this.appService.redirectUrl(req.Params.shortenId,res)
   }
 
 
