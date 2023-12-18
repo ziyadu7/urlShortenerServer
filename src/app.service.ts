@@ -60,10 +60,11 @@ export class AppService {
   // redirect Url
 
     async redirectUrl(shortenId:String, res){
+        const id = shortenId.slice(1,shortenId.length)
         
-      const url = await this.UrlModel.findOne({shortenId})
+      const url = await this.UrlModel.findOne({shortenId:id})
     
-      return res.redirect(url.shortenUrl)
+      return res.redirect(url.url)
     }
 
   // Delte urls
@@ -85,8 +86,8 @@ export class AppService {
       throw new HttpException('Url already decoded',HttpStatus.CONFLICT)
     }else{
       const urlCode = nanoid(10);
-
-      const shortenedUrl = `${process.env.BASEURL}/${urlCode}`
+      
+      const shortenedUrl = `${process.env.BASEURL}/:${urlCode}`
 
       await this.UrlModel.create({
         userId,

@@ -9,16 +9,16 @@ import { urlValidationDto } from './dto/url.dto';
 export class AppController {
   constructor(private readonly appService: AppService) { }
   
-  @Get('/')
+  @Get('/urls')
   @UseGuards(AuthGuard)
   async getUrls(@Request() req){
     return this.appService.getUrls(req.user.sub)
   }
 
-  @Get('/url')
-  @UseGuards(AuthGuard)
-  async redirectUrl(@Request() req,@Response() res:Response){
-    return this.appService.redirectUrl(req.Params.shortenId,res)
+  @Get('/:shortenId')
+  async redirectUrl(@Param() shortenId,@Response() res:Response){
+    
+    return this.appService.redirectUrl(shortenId.shortenId,res)
   }
 
 
