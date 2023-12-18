@@ -57,6 +57,15 @@ export class AppService {
     return {urls}
   }
 
+  // redirect Url
+
+    async redirectUrl(urlId:String){
+        
+      const urls = await this.UrlModel.find({urlId})
+      
+      return {urls}
+    }
+
   // Delte urls
 
   async deleteUrl(urlId:String){
@@ -77,10 +86,12 @@ export class AppService {
     }else{
       const urlCode = nanoid(10);
 
+      const shortenedUrl = `${process.env.BASEURL}/${urlCode}`
+
       await this.UrlModel.create({
         userId,
         url:url.url,
-        shortenUrl:urlCode
+        shortenUrl:shortenedUrl
       })
 
       return {message:'Url shortened successfully'}

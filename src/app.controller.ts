@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Delete, Post, UsePipes,Request,UseGuards, Param } from '@nestjs/common';
+import { Body, Controller, Get, Delete, Post, UsePipes,Request,UseGuards, Param, Response } from '@nestjs/common';
 import { AppService } from './app.service';
 import { userValidationDto } from './dto/user.dto';
 import { SETTINGS } from './app.utils';
@@ -15,6 +15,13 @@ export class AppController {
     return this.appService.getUrls(req.user.sub)
   }
 
+  @Get('/url')
+  @UseGuards(AuthGuard)
+  async redirectUrl(@Request() req,@Response() res:Response){
+    return this.appService.redirectUrl(req.Params.urlId)
+  }
+
+
 
   @Delete('/deleteUrl/:urlId')
   @UseGuards(AuthGuard)
@@ -26,7 +33,6 @@ export class AppController {
   @UseGuards(AuthGuard)
   @UsePipes(SETTINGS.urlValidation)
   async addUrl(@Request() req, @Body() urlDto:urlValidationDto){
-    console.log(urlDto);
     
     return this.appService.addUrl(urlDto,req.user.sub)
   }
